@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>الدليل التنظيمي – استمرارية الأعمال</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+  <style>
+    :root {
+      --green-dark: #104631;
+      --green: #26914f;
+      --gold: #c69133;
+      --white: #ffffff;
+      --font: "Noto Sans Arabic", sans-serif;
+      --shadow-light: 0 2px 10px rgba(0, 0, 0, .05);
+      --shadow-medium: 0 4px 20px rgba(0, 0, 0, .1);
+      --transition: all .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--green-dark);
+      background: #fafafa;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-weight: 700
+    }
+
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green-dark);
+      color: var(--white);
+      z-index: 9999;
+      transition: opacity .5s;
+    }
+
+    .spinner-gold {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(198, 145, 51, .3);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .section-title {
+      color: var(--green-dark);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      margin: 16px auto 0;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--white);
+      padding: .8rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium)
+    }
+
+    .navbar {
+      background: var(--white);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, .05);
+    }
+
+    .nav-link {
+      color: var(--green-dark) !important;
+      font-weight: 600
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--gold) !important
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('assets/img/hero-pattern.png') center/cover;
+      opacity: .1;
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, rgba(16, 70, 49, .7), rgba(38, 145, 79, .5));
+      z-index: 2
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 3
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, .3)
+    }
+
+    .hero-stats .stat-card {
+      background: rgba(255, 255, 255, .1);
+      padding: 1.3rem 1rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .2);
+      transition: var(--transition)
+    }
+
+    .stat-card:hover {
+      background: rgba(255, 255, 255, .18)
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gold)
+    }
+
+    .vision-card,
+    .mission-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(38, 145, 79, .1);
+      transition: var(--transition)
+    }
+
+    .card-icon {
+      position: absolute;
+      top: -25px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem
+    }
+
+    .org-tree {
+      padding: 2rem 0
+    }
+
+    .org-tree ul {
+      list-style: none;
+      padding-right: 0;
+      margin: 0
+    }
+
+    .org-tree li {
+      position: relative;
+      padding: 1rem;
+      text-align: center;
+      min-width: 180px;
+      margin: .5rem
+    }
+
+    .org-tree li>div {
+      border: 2px solid var(--green);
+      border-radius: 15px;
+      padding: 1.2rem .8rem;
+      background: var(--white);
+      font-weight: 600;
+      transition: var(--transition);
+      box-shadow: var(--shadow-light);
+      cursor: pointer
+    }
+
+    .org-tree li>div:hover {
+      background: var(--gold);
+      color: var(--white);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-medium)
+    }
+
+    .org-tree li>div small {
+      display: block;
+      margin-top: .5rem;
+      font-size: .85rem;
+      opacity: .8
+    }
+
+    .step {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold) 0%, #d4a74a 100%);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      box-shadow: var(--shadow-light)
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 1
+      }
+
+      100% {
+        opacity: 0
+      }
+    }
+
+    .table-modern {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow-light)
+    }
+
+    .table-green thead {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: var(--white)
+    }
+
+    .timeline {
+      position: relative;
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--green-dark), var(--gold));
+      transform: translateX(-50%);
+    }
+
+    .timeline li {
+      position: relative;
+      width: 50%;
+      padding: 2rem;
+      margin-bottom: 2rem
+    }
+
+    .timeline li:nth-child(odd) {
+      left: 0;
+      text-align: right
+    }
+
+    .timeline li:nth-child(even) {
+      left: 50%
+    }
+
+    .timeline-date {
+      display: inline-block;
+      margin-bottom: 1rem;
+      padding: .5rem 1rem;
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--white);
+      background: var(--green);
+      border-radius: 20px
+    }
+
+    .roadmap-btn {
+      background: none !important;
+      border: none !important;
+      color: var(--green-dark) !important;
+      transition: var(--transition);
+      padding: 0 !important
+    }
+
+    .roadmap-btn:hover {
+      color: var(--gold) !important;
+      transform: translateX(-5px)
+    }
+
+    .form-card {
+      background: var(--white);
+      border: 1px solid rgba(38, 145, 79, .1);
+      border-radius: 15px;
+      padding: 2rem;
+      transition: var(--transition);
+      height: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .form-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-medium);
+      border-color: var(--gold)
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 1000;
+      box-shadow: var(--shadow-medium)
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible
+    }
+
+    #pdfModal .modal-dialog {
+      max-width: 95%;
+      width: 95%;
+      height: 90vh
+    }
+
+    #pdfModal .modal-content {
+      height: 100%
+    }
+
+    #pdfModal .modal-body {
+      height: calc(100% - 70px)
+    }
+
+    #pdfModal iframe {
+      width: 100%;
+      height: 100%;
+      border: 0
+    }
+
+    .pdf-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10
+    }
+
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(50px)
+    }
+
+    @media(max-width:575.98px) {
+      .hero-title {
+        font-size: 2.2rem
+      }
+
+      .timeline::before {
+        left: 20px
+      }
+
+      .timeline li {
+        width: 100%;
+        left: 0;
+        padding-left: 50px;
+        text-align: right
+      }
+
+      .stat-card {
+        padding: 1rem .5rem
+      }
+
+      .stat-number {
+        font-size: 2rem
+      }
+
+      .back-to-top {
+        bottom: 20px;
+        left: 20px;
+        width: 45px;
+        height: 45px
+      }
+
+      .org-tree ul {
+        display: block
+      }
+
+      .org-tree li {
+        display: block;
+        margin: 1rem auto;
+        max-width: 280px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-spinner">
+      <div class="spinner-gold"></div>
+      <p>جاري التحميل…</p>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#"><img src="assets/img/logo.svg" alt="شعار الإمارة"
+          height="40" /><span>إدارة استمرارية الأعمال</span></a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span
+          class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#vision">الرؤية</a></li>
+          <li class="nav-item"><a class="nav-link" href="#org">الهيكل</a></li>
+          <li class="nav-item"><a class="nav-link" href="#risk">المخاطر</a></li>
+          <li class="nav-item"><a class="nav-link" href="#bcp">الاستمرارية</a></li>
+          <li class="nav-item"><a class="nav-link" href="#kpi">المؤشرات</a></li>
+          <li class="nav-item"><a class="nav-link" href="#roadmap">خريطة الطريق</a></li>
+          <li class="nav-item"><a class="nav-link" href="#forms">النماذج</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="hero d-flex justify-content-center text-center align-items-center">
+    <div class="hero-overlay"></div>
+    <div class="container" data-animate>
+      <h1 class="hero-title display-5 fw-bold">الدليل التنظيمي والإجرائي</h1>
+      <p class="hero-subtitle lead">إدارة استمرارية الأعمال وإدارة المخاطر</p>
+      <div class="hero-stats row g-3 mt-4 mb-4">
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <h3 class="stat-number" data-count="99">0</h3><small>نسبة التوفر %</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <h3 class="stat-number" data-count="24">0</h3><small>دعم 24/7</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <h3 class="stat-number" data-count="15">0</h3><small>خطط</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <h3 class="stat-number" data-count="7">0</h3><small>أيام بالأسبوع</small>
+          </div>
+        </div>
+      </div>
+      <a href="#vision" class="btn btn-gold btn-lg">استكشف الخطة</a>
+    </div>
+  </header>
+  <section id="vision" class="py-5">
+    <div class="container row g-4">
+      <div class="col-lg-6" data-animate>
+        <div class="vision-card position-relative p-4">
+          <div class="card-icon"><i class="fas fa-eye"></i></div>
+          <h2 class="section-title">الرؤية</h2>
+          <p id="vision-text" class="fs-5"></p>
+        </div>
+      </div>
+      <div class="col-lg-6" data-animate>
+        <div class="mission-card position-relative p-4">
+          <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+          <h2 class="section-title">الرسالة</h2>
+          <p id="mission-text" class="fs-5"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="org" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title text-center mb-5" data-animate>الهيكل التنظيمي</h2>
+      <div id="orgTree" class="org-tree"></div>
+    </div>
+  </section>
+  <section id="risk" class="py-5">
+    <div class="container">
+      <h2 class="section-title text-center mb-5" data-animate>عملية إدارة المخاطر</h2>
+      <div id="risk-steps" class="row g-4"></div>
+    </div>
+  </section>
+  <section id="bcp" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title text-center mb-5" data-animate>العمليات الحيوية</h2>
+      <div class="table-responsive" data-animate>
+        <table class="table table-bordered align-middle text-center table-modern">
+          <thead class="table-green">
+            <tr>
+              <th>الخدمة</th>
+              <th>العملية</th>
+              <th>الأولوية</th>
+              <th>الأنظمة</th>
+              <th>وقت الاسترداد</th>
+            </tr>
+          </thead>
+          <tbody id="bcp-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section id="kpi" class="py-5">
+    <div class="container">
+      <h2 class="section-title text-center mb-5" data-animate>مؤشرات الأداء</h2>
+      <div class="chart-container" data-animate><canvas id="kpiChart" height="120"></canvas></div>
+    </div>
+  </section>
+  <section id="roadmap" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title text-center mb-5" data-animate>خريطة الطريق</h2>
+      <ul id="roadmap-list" class="timeline"></ul>
+    </div>
+  </section>
+  <section id="forms" class="py-5">
+    <div class="container">
+      <h2 class="section-title text-center mb-5" data-animate>النماذج والقوالب</h2>
+      <div id="forms-row" class="row g-4"></div>
+    </div>
+  </section>
+  <div class="modal fade" id="pdfModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content h-100">
+        <div class="modal-header">
+          <h5 id="pdfTitle" class="modal-title"></h5><button type="button" class="btn-close"
+            data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0 position-relative">
+          <div class="pdf-loading text-center py-4">
+            <div class="spinner-border text-primary"></div>
+            <p>جاري التحميل…</p>
+          </div><iframe id="pdfFrame" loading="lazy" style="display:none"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button id="backToTop" class="back-to-top"><i class="fas fa-chevron-up"></i></button>
+  <footer class="py-4 text-white text-center" style="background:linear-gradient(135deg,#104631,#26914f)">
+    <div class="container row">
+      <div class="col-md-6"><img src="assets/img/logo.svg" height="30" />
+        <p>إمارة منطقة مكة المكرمة</p>
+      </div>
+      <div class="col-md-6"><small>© 1447 هـ</small><br /><small>جميع الحقوق محفوظة</small></div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script>
+    // البيانات الرئيسية (يمكنك تعديلها كما تريد)
+    const DATA = {
+      "vision": "أن تكون إمارة منطقة مكة المكرمة نموذجاً رائداً في استمرارية الأعمال وخفض المخاطر",
+      "mission": "تمكين وحدات العمل من مواجهة الطوارئ عبر خطط مرنة وإجراءات مؤسسية متوافقة مع أفضل الممارسات",
+      "organizational_structure": [
+        { "title": "الأمير", "description": "صاحب السمو الملكي أمير المنطقة", "level": 1 },
+        { "title": "نائب الأمير", "description": "صاحب السمو الملكي نائب الأمير", "level": 1 },
+        { "title": "مدير عام الإمارة", "description": "الإشراف العام على الإدارات", "level": 2 },
+        { "title": "وكيل الشؤون الإدارية", "description": "الشؤون الإدارية والمالية", "level": 3 },
+        { "title": "مدير استمرارية الأعمال", "description": "قيادة خطط الاستمرارية", "level": 4 },
+        { "title": "رئيس قسم تحليل المخاطر", "description": "تقييم المخاطر المؤسسية", "level": 5 },
+        { "title": "رئيس قسم الخطط", "description": "إعداد خطط الاستمرارية", "level": 5 },
+        { "title": "منسق الاختبارات", "description": "اختبار الخطط والتدريب", "level": 6 }
+      ],
+      "risk_management_process": [
+        { "step": 1, "title": "تحديد المخاطر", "description": "حصر جميع المخاطر المحتملة" },
+        { "step": 2, "title": "تحليل المخاطر", "description": "تقييم الاحتمالية والأثر" },
+        { "step": 3, "title": "تقييم المخاطر", "description": "ترتيب المخاطر حسب الأولوية" },
+        { "step": 4, "title": "معالجة المخاطر", "description": "وضع استراتيجيات الحد والتخفيف" },
+        { "step": 5, "title": "المراقبة والمراجعة", "description": "متابعة فعالية الإجراءات دورياً" }
+      ],
+      "business_processes": [
+        { "service": "الخدمات الإدارية", "process": "إصدار التراخيص", "priority": "عالية", "systems": ["نظام إدارة الوثائق", "قاعدة البيانات"], "recovery_time": "4 ساعات" },
+        { "service": "الخدمات المالية", "process": "معالجة المدفوعات", "priority": "عالية جداً", "systems": ["النظام المصرفي", "المحاسبة"], "recovery_time": "2 ساعة" },
+        { "service": "الموارد البشرية", "process": "إدارة الرواتب", "priority": "عالية", "systems": ["HRMS", "قاعدة بيانات الموظفين"], "recovery_time": "8 ساعات" },
+        { "service": "الخدمات التقنية", "process": "صيانة الأنظمة", "priority": "متوسطة", "systems": ["مركز البيانات", "الشبكة"], "recovery_time": "12 ساعة" },
+        { "service": "خدمات الأمن", "process": "مراقبة المباني", "priority": "عالية", "systems": ["نظام المراقبة", "أنظمة الإنذار"], "recovery_time": "1 ساعة" }
+      ],
+      "kpis": [
+        { "name": "نسبة توفر الأنظمة", "current": 99.5, "target": 99.8, "unit": "%" },
+        { "name": "متوسط وقت الاستجابة للحوادث", "current": 45, "target": 30, "unit": "دقيقة" },
+        { "name": "نسبة إنجاز التدريبات", "current": 85, "target": 95, "unit": "%" },
+        { "name": "الحوادث المحلولة بالوقت", "current": 87, "target": 95, "unit": "%" },
+        { "name": "مستوى رضا العملاء", "current": 4.2, "target": 4.5, "unit": "/5" }
+      ],
+      "roadmap": [
+        { "quarter": "Q1 2025", "phase": "التخطيط والإعداد", "tasks": ["تشكيل فريق الاستمرارية", "وضع السياسات", "تحديد النطاق"], "pdf": "assets/forms/q1-2025-plan.pdf" },
+        { "quarter": "Q2 2025", "phase": "تقييم المخاطر والتأثير", "tasks": ["تقييم شامل", "تحليل أثر الانقطاع", "حصر العمليات الحيوية"], "pdf": "assets/forms/q2-2025-risk.pdf" },
+        { "quarter": "Q3 2025", "phase": "تطوير الخطط", "tasks": ["إعداد خطط الاستمرارية", "إجراءات الطوارئ", "إنشاء المواقع البديلة"], "pdf": "assets/forms/q3-2025-bcp.pdf" },
+        { "quarter": "Q4 2025", "phase": "التدريب والاختبار", "tasks": ["برامج التدريب", "محاكاة الأزمات", "تقييم الفعالية"], "pdf": "assets/forms/q4-2025-test.pdf" },
+        { "quarter": "Q1 2026", "phase": "التحسين المستمر", "tasks": ["مراجعة الخطط", "تطبيق الدروس المستفادة", "التوسع في التطبيق"], "pdf": "assets/forms/q1-2026-improve.pdf" }
+      ],
+      "forms_templates": [
+        { "name": "نموذج تقييم المخاطر", "description": "لتحديد وتقييم المخاطر المحتملة", "file": "assets/forms/risk_assessment_form.pdf" },
+        { "name": "قالب خطة استمرارية الأعمال", "description": "لإعداد خطط الاستمرارية", "file": "assets/forms/bcp_template.docx" },
+        { "name": "نموذج بلاغ الحوادث", "description": "للإبلاغ عن الحوادث والطوارئ", "file": "assets/forms/incident_report_form.pdf" },
+        { "name": "قائمة جهات الاتصال الطارئة", "description": "أرقام الاتصال للطوارئ", "file": "assets/forms/emergency_contacts.xlsx" }
+      ]
+    };
+
+    // ----------- الأكواد الوظيفية ----------
+    let chartInstance = null;
+    let isLoading = true;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loading = document.getElementById('loadingScreen');
+          loading.style.opacity = '0';
+          setTimeout(() => { loading.remove(); isLoading = false; initAnimations(); }, 500);
+        }, 1000);
+      });
+
+      renderVisionMission(DATA);
+      renderOrg(DATA.organizational_structure);
+      renderRiskSteps(DATA.risk_management_process);
+      renderBCPTable(DATA.business_processes);
+      renderKPIChart(DATA.kpis);
+      renderRoadmap(DATA.roadmap);
+      renderForms(DATA.forms_templates);
+      initBackToTop();
+      initNavbarScroll();
+      initStatCounters();
+    });
+
+    function renderVisionMission(d) {
+      document.getElementById('vision-text').textContent = d.vision || '';
+      document.getElementById('mission-text').textContent = d.mission || '';
+    }
+    function renderOrg(list) {
+      if (!list?.length) return;
+      const levels = {};
+      list.forEach(n => { (levels[n.level] = levels[n.level] || []).push(n); });
+      const container = document.getElementById('orgTree');
+      const max = Math.max(...Object.keys(levels));
+      let html = '<div class="org-levels">';
+      for (let l = 1; l <= max; l++) {
+        if (!levels[l]) continue;
+        html += `<div class="org-level level-${l}"><ul class="d-flex flex-wrap justify-content-center gap-3">`;
+        levels[l].forEach((node, i) => {
+          html += `
+          <li data-animate style="animation-delay:${i * 0.1}s">
+            <div class="org-node" data-bs-toggle="tooltip" title="المستوى ${l}">
+              <strong>${node.title}</strong>
+              <small>${node.description}</small>
+            </div>
+          </li>`;
+        });
+        html += '</ul></div>';
+      }
+      html += '</div>';
+      container.innerHTML = html;
+      initTooltips();
+    }
+    function renderRiskSteps(steps) {
+      const c = document.getElementById('risk-steps'); c.innerHTML = '';
+      steps.forEach((s, i) => {
+        c.insertAdjacentHTML('beforeend', `
+        <div class="col-lg-4 col-md-6" data-animate style="animation-delay:${i * .2}s">
+          <div class="risk-step-card text-center h-100">
+            <div class="step">${s.step}</div>
+            <h5 class="mb-3">${s.title}</h5>
+            <p class="text-muted">${s.description}</p>
+          </div>
+        </div>`);
+      });
+    }
+    function renderBCPTable(pcs) {
+      const t = document.getElementById('bcp-table'); t.innerHTML = '';
+      pcs.forEach((p, i) => {
+        const pri = p.priority;
+        const classMap = { 'عالية جداً': 'danger', 'عالية': 'warning', 'متوسطة': 'info' };
+        const badge = `badge bg-${classMap[pri] || 'secondary'}`;
+        t.insertAdjacentHTML('beforeend', `
+        <tr style="animation-delay:${i * 0.1}s">
+          <td><strong>${p.service}</strong></td>
+          <td>${p.process}</td>
+          <td><span class="${badge}">${pri}</span></td>
+          <td><small>${Array.isArray(p.systems) ? p.systems.join('<br>') : p.systems}</small></td>
+          <td><span class="badge bg-success">${p.recovery_time}</span></td>
+        </tr>`);
+      });
+    }
+    function renderKPIChart(kpis) {
+      const ctx = document.getElementById('kpiChart');
+      if (chartInstance) chartInstance.destroy();
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: kpis.map(k => k.name),
+          datasets: [
+            {
+              label: 'القيمة الحالية', data: kpis.map(k => k.current),
+              backgroundColor: 'rgba(38,145,79,.8)', borderColor: 'rgba(38,145,79,1)',
+              borderWidth: 2, borderRadius: 8, borderSkipped: false
+            },
+            {
+              label: 'المستهدف', data: kpis.map(k => k.target),
+              backgroundColor: 'rgba(198,145,51,.8)', borderColor: 'rgba(198,145,51,1)',
+              borderWidth: 2, borderRadius: 8, borderSkipped: false
+            }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: true, position: 'bottom' } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+    function renderRoadmap(list) {
+      const ul = document.getElementById('roadmap-list'); ul.innerHTML = '';
+      list.forEach((it, i) => {
+        ul.insertAdjacentHTML('beforeend', `
+        <li data-animate style="animation-delay:${i * .3}s">
+          <span class="timeline-date"><i class="fas fa-calendar-alt me-2"></i>${it.quarter}</span>
+          ${it.pdf ? `
+            <button class="btn btn-link p-0 roadmap-btn" data-pdf="${it.pdf}"
+                    title="عرض تفاصيل ${it.quarter}">
+              <h5 class="d-inline timeline-title"><i class="fas fa-file-pdf me-2"></i>${it.phase}</h5>
+            </button>`:
+            `<h5 class="timeline-title">${it.phase}</h5>`
+          }
+          <ul class="timeline-tasks">
+            ${it.tasks?.map(t => `<li><i class="fas fa-check-circle text-success me-2"></i>${t}</li>`).join('')}
+          </ul>
+        </li>`);
+      });
+      ul.addEventListener('click', e => {
+        const btn = e.target.closest('.roadmap-btn'); if (!btn) return;
+        openPDFModal(btn.dataset.pdf, btn.textContent.trim());
+      });
+    }
+    function openPDFModal(file, title) {
+      const modal = document.getElementById('pdfModal');
+      const iframe = document.getElementById('pdfFrame');
+      const load = modal.querySelector('.pdf-loading');
+      document.getElementById('pdfTitle').textContent = title;
+      load.style.display = 'block'; iframe.style.display = 'none';
+      iframe.src = file;
+      iframe.onload = () => { load.style.display = 'none'; iframe.style.display = 'block' };
+      iframe.onerror = () => { load.innerHTML = '<div class="alert alert-danger">تعذر تحميل الملف</div>' };
+      bootstrap.Modal.getOrCreateInstance(modal).show();
+      modal.addEventListener('hidden.bs.modal', () => iframe.src = '', { once: true });
+    }
+    function renderForms(forms) {
+      const row = document.getElementById('forms-row'); row.innerHTML = '';
+      forms.forEach((f, i) => {
+        const icon = f.file.endsWith('.pdf') ? 'fa-file-pdf text-danger' :
+          f.file.endsWith('.docx') ? 'fa-file-word text-primary' :
+            f.file.endsWith('.xlsx') ? 'fa-file-excel text-success' : 'fa-file';
+        row.insertAdjacentHTML('beforeend', `
+        <div class="col-lg-3 col-md-6 col-sm-6" data-animate style="animation-delay:${i * .1}s">
+          <div class="form-card h-100 d-flex flex-column">
+            <div class="text-center mb-3"><i class="fas ${icon}" style="font-size:3rem"></i></div>
+            <h6 class="fw-bold mb-2 flex-grow-1">${f.name}</h6>
+            <p class="small text-muted mb-3">${f.description}</p>
+            <a class="btn btn-gold mt-auto" href="${f.file}" download><i class="fas fa-download me-2"></i>تحميل</a>
+          </div>
+        </div>`);
+      });
+    }
+    function initStatCounters() {
+      document.querySelectorAll('.stat-number').forEach(c => {
+        const target = +c.dataset.count, inc = target / (2000 / 16); let cur = 0;
+        const timer = setInterval(() => {
+          cur += inc; if (cur >= target) { cur = target; clearInterval(timer); }
+          c.textContent = Math.floor(cur);
+        }, 16);
+      });
+    }
+    function initBackToTop() {
+      const btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => btn.classList.toggle('show', window.scrollY > 500));
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+    function initNavbarScroll() {
+      const nav = document.querySelector('.navbar');
+      const links = document.querySelectorAll('.nav-link');
+      const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+      window.addEventListener('scroll', () => {
+        window.scrollY > 100 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        const pos = window.scrollY + 200;
+        sections.forEach((s, i) => {
+          links[i].classList.toggle('active', pos >= s.offsetTop && pos < s.offsetTop + s.offsetHeight);
+        });
+      });
+      links.forEach(l => l.addEventListener('click', e => {
+        e.preventDefault();
+        const tgt = document.querySelector(l.getAttribute('href'));
+        window.scrollTo({ top: tgt.offsetTop - 80, behavior: 'smooth' });
+      }));
+    }
+    function initTooltips() {
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      .forEach(t => new bootstrap.Tooltip(t));
+    }
+    // === مؤثرات GSAP + AOS ===
+    function initAnimations() {
+      AOS.init({ duration: 800, once: true, offset: 100 });
+      gsap.utils.toArray('[data-animate]').forEach(el => {
+        gsap.fromTo(el, { opacity: 0, y: 50, scale: .95 },
+          {
+            opacity: 1, y: 0, scale: 1, duration: .8, ease: "power2.out",
+            scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
+          });
+      });
+      gsap.timeline()
+        .from('.hero-title', { duration: 1, y: 50, opacity: 0 })
+        .from('.hero-subtitle', { duration: 1, y: 30, opacity: 0 }, '-=.5')
+        .from('.hero-stats', { duration: 1, y: 30, opacity: 0 }, '-=.3')
+        .from('.btn-gold', { duration: .8, scale: .8, opacity: 0, ease: "back.out(1.7)" }, '-=.2');
+    }
+  </script>
+</body>
+
+</html>
